@@ -34,7 +34,7 @@ If the list has not refreshed, refresh the marketplace or reopen the client. Ins
 - Calendar accounts configured and synchronized in macOS Calendar.
 - Full Calendar access for **Kai Apple Calendar Helper**, granted when prompted on first use.
 
-The plugin runs in local Mac conversations. Mobile and browser-only conversations cannot run the helper directly. The helper targets macOS 14; compatibility still requires testing on the target OS.
+The plugin runs in local Mac conversations. Mobile and browser-only conversations cannot run the helper directly. The helper targets macOS 14. Reads have been verified on two Apple Silicon Macs running macOS 27.0.1, with event creation and readback verified on one. Testing on an actual macOS 14 device is still pending.
 
 ## Update, uninstall, and recover
 

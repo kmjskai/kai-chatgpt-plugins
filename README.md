@@ -34,7 +34,7 @@ codex plugin add kai-icloud-calendar@kai-chatgpt-plugins
 - 所需账户已经配置在 macOS 日历中，并由系统完成同步。
 - 按首次使用提示，授予 **Kai Apple Calendar Helper** 日历完全访问权限。
 
-插件需要在 Mac 的本地会话中运行；手机和纯网页会话不能直接运行本机助手。构建目标为 macOS 14，实际兼容性仍需在目标系统上验证。
+插件需要在 Mac 的本地会话中运行；手机和纯网页会话不能直接运行本机助手。构建目标为 macOS 14；当前已在两台运行 macOS 27.0.1 的 Apple Silicon Mac 上验证读取，并在其中一台验证创建和回读。macOS 14 实机兼容性仍待验证。
 
 ## 更新、卸载与恢复
 
