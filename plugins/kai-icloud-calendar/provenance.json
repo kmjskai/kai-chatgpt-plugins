@@ -1,0 +1,49 @@
+{
+  "format_version": 2,
+  "mcp": {
+    "repository": "Kai-Apple-Calendar-MCP",
+    "commit": "18bfde482cd26195e7cbacc6989be6195cf91318",
+    "version": "0.1.0",
+    "license": "Apache-2.0"
+  },
+  "skill": {
+    "repository": "kai-skills",
+    "commit": "9b03f1e34c4138becc0020d958fb31286397456e",
+    "source": "skills/kai-apple-calendar",
+    "source_skill_sha256": "e18a1bb142376854b10efbc83f89bc2d90471f36f2fa6ed02f4ce2fad7b4e782",
+    "license": "Apache-2.0",
+    "license_scope": "bundled copy only"
+  },
+  "adaptations": [
+    "SKILL.md unchanged; plugin display metadata replaces the standalone MCP dependency; the bundled Skill carries its own Apache-2.0 license."
+  ],
+  "binary_origin": "upstream-build/developer-id-signed",
+  "helper": {
+    "architecture": "arm64",
+    "minimum_macos": [
+      "14.0"
+    ],
+    "bundle_id": "com.yingkaisun.kaiapplecalendar.helper",
+    "plist_minimum_macos": "14.0",
+    "signature": "cms-signed",
+    "hardened_runtime": true,
+    "secure_timestamp": true
+  },
+  "sha256": {
+    "server/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "server/bin/kai-apple-calendar-mcp.js": "6bd5571fc3fbe072c72d8d5b9f4c5dfa822a7f29cbeab84b747b12d69d77ad6d",
+    "server/native/Entitlements.plist": "e15f456c48e340c1d6b088c47becaddf20d844102cde82e9d539499b22e4aa4a",
+    "server/native/Info.plist": "7c4dc5140e016d8412ec97acd7317dd38f1d662ae25aaba69dd1d86568864d80",
+    "server/native/Kai Apple Calendar Helper.app/Contents/Info.plist": "7c4dc5140e016d8412ec97acd7317dd38f1d662ae25aaba69dd1d86568864d80",
+    "server/native/Kai Apple Calendar Helper.app/Contents/MacOS/calendar-helper": "eb3b685302df4f041a7d2039e77542e93f0a9c3711932f341746665098c44349",
+    "server/native/Kai Apple Calendar Helper.app/Contents/_CodeSignature/CodeResources": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b",
+    "server/native/main.swift": "79a7c8901e872f549c20313d21a22e464825fdb32541203c8c10593f3a9d3936",
+    "server/package.json": "58e9c53173a096e165b0858de0fbe3e85a840aaf93195a7b2023e19ed093f5c2",
+    "server/scripts/build.sh": "d7adb8f78c72d00e60c2710ad5d763e6b9487fc419b896eb7596f40f4dac1c12",
+    "server/scripts/install-codex.sh": "ed9556db5037e06234bc965002d635fb1a6e348dab5574062d9beb5e395f0b27",
+    "server/test/server.test.js": "0dd42226008ec3951f2c99ff05cf0d49b0538194e41f9f96a1f4cd3ea7d8918d",
+    "skills/kai-apple-calendar/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "skills/kai-apple-calendar/SKILL.md": "e18a1bb142376854b10efbc83f89bc2d90471f36f2fa6ed02f4ce2fad7b4e782",
+    "skills/kai-apple-calendar/agents/openai.yaml": "eee98607cc5f1c32a1d9750d1aae353746fce251ed0d36663ca1dc06f67b9e36"
+  }
+}

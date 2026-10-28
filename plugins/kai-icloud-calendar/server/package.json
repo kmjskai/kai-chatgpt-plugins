@@ -1,0 +1,25 @@
+{
+  "name": "kai-apple-calendar-mcp",
+  "version": "0.1.0",
+  "description": "Local MCP server for Apple Calendar through EventKit",
+  "author": "Yingkai Sun",
+  "type": "module",
+  "bin": {
+    "kai-apple-calendar-mcp": "bin/kai-apple-calendar-mcp.js"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20",
+    "macos": ">=14"
+  },
+  "license": "Apache-2.0",
+  "files": [
+    "bin/",
+    "native/Kai Apple Calendar Helper.app/",
+    "README.md",
+    "LICENSE"
+  ]
+}

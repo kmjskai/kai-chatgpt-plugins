@@ -1,0 +1,109 @@
+name: Prepare stable release draft
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Plugin version (YYYY.M.N)
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: kai-calendar-release
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: macos-26
+    timeout-minutes: 20
+    env:
+      VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - name: Verify version and release notes
+        run: |
+          python3 - <<'PY'
+          import json,os,re
+          version=os.environ['VERSION']
+          assert re.fullmatch(r'\d{4}\.\d{1,2}\.\d+',version)
+          assert json.load(open('plugins/kai-icloud-calendar/plugin.json'))['version']==version
+          PY
+          python3 scripts/extract_release_notes.py "$VERSION" --output "$RUNNER_TEMP/release-notes.md"
+      - run: python3 scripts/validate_plugin.py
+      - run: python3 -m unittest discover -s tests -v
+      - run: npm test --prefix plugins/kai-icloud-calendar/server
+  build:
+    needs: verify
+    runs-on: macos-26
+    timeout-minutes: 45
+    environment: production
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    env:
+      VERSION: ${{ inputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - name: Refuse an existing release or tag
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" > "$RUNNER_TEMP/releases.json"
+          python3 - <<'PY'
+          import json,os
+          tag='v'+os.environ['VERSION']
+          assert not any(r['tag_name']==tag for r in json.load(open(os.environ['RUNNER_TEMP']+'/releases.json'))),'Release already exists; refuse replacement'
+          PY
+          if git rev-parse --verify "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo 'Tag already exists; refuse replacement' >&2
+            exit 1
+          fi
+      - name: Build, sign, notarize and verify the final archive
+        env:
+          MACOS_CERTIFICATE_P12_BASE64: ${{ secrets.MACOS_CERTIFICATE_P12_BASE64 }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          APPLE_NOTARY_KEY_P8_BASE64: ${{ secrets.APPLE_NOTARY_KEY_P8_BASE64 }}
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+        run: python3 scripts/ci_release.py --version "$VERSION" --output dist/release
+      - name: Record the notarized plugin snapshot
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -- "plugins/kai-icloud-calendar/server/native/Kai Apple Calendar Helper.app" plugins/kai-icloud-calendar/provenance.json
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "release: prepare notarized calendar plugin $VERSION"
+            git push origin HEAD:main
+          fi
+          git tag "v$VERSION"
+          git push origin "refs/tags/v$VERSION"
+      - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4
+        with:
+          subject-path: dist/release/kai-chatgpt-plugins-${{ inputs.version }}.zip
+      - name: Create draft without publishing a preview
+        run: |
+          python3 scripts/extract_release_notes.py "$VERSION" --output "$RUNNER_TEMP/release-notes.md"
+          gh release create "v$VERSION" --verify-tag --draft --latest=false \
+            --title "Kai iCloud Calendar $VERSION" --notes-file "$RUNNER_TEMP/release-notes.md" \
+            "dist/release/kai-chatgpt-plugins-$VERSION.zip" dist/release/SHA256SUMS.txt dist/release/release.json
+          gh release download "v$VERSION" --dir downloaded
+          cmp "dist/release/kai-chatgpt-plugins-$VERSION.zip" "downloaded/kai-chatgpt-plugins-$VERSION.zip"
+          python3 scripts/verify_release.py downloaded --version "$VERSION"
+          gh attestation verify "downloaded/kai-chatgpt-plugins-$VERSION.zip" --repo "$GITHUB_REPOSITORY"

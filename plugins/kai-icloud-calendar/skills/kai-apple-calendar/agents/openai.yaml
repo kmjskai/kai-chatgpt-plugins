@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kai iCloud Calendar"
+  short_description: "Review locally synced calendars and create confirmed events"
+  default_prompt: "Use the bundled calendar skill to read my calendars and upcoming events."

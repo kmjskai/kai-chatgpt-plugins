@@ -1,0 +1,12 @@
+{
+  "name": "kai-chatgpt-plugins",
+  "interface": { "displayName": "Kai ChatGPT Plugins" },
+  "plugins": [
+    {
+      "name": "kai-icloud-calendar",
+      "source": { "source": "local", "path": "./plugins/kai-icloud-calendar" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

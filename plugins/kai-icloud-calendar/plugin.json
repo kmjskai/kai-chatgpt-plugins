@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "kai-icloud-calendar",
+  "version": "2026.10.0",
+  "description": "Read locally synced Apple Calendar data and create explicitly authorized events on macOS.",
+  "author": {
+    "name": "Yingkai Sun"
+  },
+  "keywords": [
+    "calendar",
+    "icloud",
+    "macos",
+    "eventkit"
+  ],
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "interface": {
+        "displayName": "Kai iCloud Calendar",
+        "shortDescription": "查看 Mac 日历，并按确认的安排创建日程",
+        "longDescription": "通过 macOS 本地日历读取已同步的 iCloud 等账户数据，查询日程，并在明确确认后创建单个事件。需要 Mac 本地运行，不是官方 iCloud 插件或云端日历连接。",
+        "developerName": "Yingkai Sun",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "composerIcon": "./assets/icon.svg",
+        "logo": "./assets/icon.svg",
+        "defaultPrompt": [
+          "读取我的日历和未来七天日程，只读，不创建或修改事件。"
+        ]
+      }
+    }
+  },
+  "license": "Apache-2.0"
+}

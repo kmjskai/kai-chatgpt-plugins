@@ -1,0 +1,58 @@
+name: Publish verified stable release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing draft version
+        required: true
+        type: string
+      confirmation:
+        description: Type PUBLISH after testing the downloaded archive
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: kai-calendar-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    runs-on: macos-26
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      attestations: read
+    env:
+      VERSION: ${{ inputs.version }}
+      CONFIRMATION: ${{ inputs.confirmation }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - run: test "$CONFIRMATION" = PUBLISH
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: v${{ inputs.version }}
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - name: Verify draft and ancestry without rebuilding
+        run: |
+          gh release view "v$VERSION" --json isDraft,isPrerelease > "$RUNNER_TEMP/release.json"
+          python3 - <<'PY'
+          import json,os
+          r=json.load(open(os.environ['RUNNER_TEMP']+'/release.json'))
+          assert r['isDraft'] and not r['isPrerelease'],'Only a verified draft can be published'
+          PY
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor HEAD origin/main
+          gh release download "v$VERSION" --dir downloaded
+          python3 scripts/verify_release.py downloaded --version "$VERSION"
+          gh attestation verify "downloaded/kai-chatgpt-plugins-$VERSION.zip" --repo "$GITHUB_REPOSITORY"
+      - name: Publish the same archive as latest stable
+        run: gh release edit "v$VERSION" --draft=false --prerelease=false --latest --title "Kai iCloud Calendar $VERSION"

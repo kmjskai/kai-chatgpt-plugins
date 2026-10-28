@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "kai_apple_calendar": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/server/bin/kai-apple-calendar-mcp.js"],
+      "cwd": "${PLUGIN_ROOT}"
+    }
+  }
+}

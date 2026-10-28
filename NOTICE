@@ -1,0 +1,15 @@
+Kai ChatGPT Plugins
+Copyright 2026 Yingkai Sun
+
+Original plugin configuration, documentation, packaging tools and bundled
+kai-apple-calendar Skill are licensed under the Apache License, Version 2.0.
+
+Kai iCloud Calendar includes Kai Apple Calendar MCP by Yingkai Sun,
+licensed under the Apache License, Version 2.0. Its original license is
+included at plugins/kai-icloud-calendar/server/LICENSE.
+
+The Skill license grant applies to the copies included in this package;
+it does not declare a license for the rest of the upstream skills collection.
+
+Apple Calendar, iCloud, ChatGPT and Codex are names of their respective owners.
+This project is independent and does not claim their endorsement.
