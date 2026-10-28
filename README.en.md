@@ -4,6 +4,12 @@
 
 Tools and reusable workflows for completing everyday tasks through ChatGPT / Codex conversations.
 
+[![macOS](https://img.shields.io/badge/macOS-14%2B-blue)](https://github.com/kmjskai/kai-chatgpt-plugins#requirements-and-permissions)
+[![Latest stable](https://img.shields.io/github/v/release/kmjskai/kai-chatgpt-plugins)](https://github.com/kmjskai/kai-chatgpt-plugins/releases/latest)
+[![License](https://img.shields.io/github/license/kmjskai/kai-chatgpt-plugins)](LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/kmjskai/kai-chatgpt-plugins/total)](https://github.com/kmjskai/kai-chatgpt-plugins/releases)
+[![Package checks](https://github.com/kmjskai/kai-chatgpt-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/kmjskai/kai-chatgpt-plugins/actions/workflows/ci.yml)
+
 [简体中文](README.md) · [GitHub repository](https://github.com/kmjskai/kai-chatgpt-plugins) · [Report an issue](https://github.com/kmjskai/kai-chatgpt-plugins/issues)
 
 ## Plugins
@@ -14,7 +20,7 @@ Tools and reusable workflows for completing everyday tasks through ChatGPT / Cod
 
 ## Install and get started
 
-Use a Codex client that supports local plugin marketplaces and local MCP servers. Obtain the complete directory, then run these commands from its root:
+Use a Codex client that supports local plugin marketplaces and local MCP servers. Download the ZIP from the [latest stable release](https://github.com/kmjskai/kai-chatgpt-plugins/releases/latest), extract the complete directory, and run these commands from its root:
 
 ```sh
 codex plugin marketplace add .

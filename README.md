@@ -4,6 +4,12 @@
 
 用于 ChatGPT / Codex 的工具与使用流程插件，让常用任务可以直接通过对话完成。
 
+[![macOS](https://img.shields.io/badge/macOS-14%2B-blue)](https://github.com/kmjskai/kai-chatgpt-plugins#系统要求与权限)
+[![Latest stable](https://img.shields.io/github/v/release/kmjskai/kai-chatgpt-plugins)](https://github.com/kmjskai/kai-chatgpt-plugins/releases/latest)
+[![License](https://img.shields.io/github/license/kmjskai/kai-chatgpt-plugins)](LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/kmjskai/kai-chatgpt-plugins/total)](https://github.com/kmjskai/kai-chatgpt-plugins/releases)
+[![Package checks](https://github.com/kmjskai/kai-chatgpt-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/kmjskai/kai-chatgpt-plugins/actions/workflows/ci.yml)
+
 [English](README.en.md) · [GitHub 仓库](https://github.com/kmjskai/kai-chatgpt-plugins) · [问题反馈](https://github.com/kmjskai/kai-chatgpt-plugins/issues)
 
 ## 插件
@@ -14,7 +20,7 @@
 
 ## 安装与快速开始
 
-需要支持本地插件源和本地 MCP 的 Codex 客户端。下载完整目录或克隆本仓库，然后在目录根部运行：
+需要支持本地插件源和本地 MCP 的 Codex 客户端。从[最新稳定版](https://github.com/kmjskai/kai-chatgpt-plugins/releases/latest)下载 ZIP 并完整解压，然后在目录根部运行：
 
 ```sh
 codex plugin marketplace add .
