@@ -4,7 +4,7 @@
 
 Tools and reusable workflows for completing everyday tasks through ChatGPT / Codex conversations.
 
-[![macOS](https://img.shields.io/badge/macOS-14%2B-blue)](https://github.com/kmjskai/kai-chatgpt-plugins#requirements-and-permissions)
+[![macOS](https://img.shields.io/badge/macOS-14%2B-blue)](https://github.com/kmjskai/kai-chatgpt-plugins/blob/main/README.en.md#requirements-and-permissions)
 [![Latest stable](https://img.shields.io/github/v/release/kmjskai/kai-chatgpt-plugins)](https://github.com/kmjskai/kai-chatgpt-plugins/releases/latest)
 [![License](https://img.shields.io/github/license/kmjskai/kai-chatgpt-plugins)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/kmjskai/kai-chatgpt-plugins/total)](https://github.com/kmjskai/kai-chatgpt-plugins/releases)
